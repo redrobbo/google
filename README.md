@@ -1,4 +1,4 @@
-#------------------------| Option 4 Google Project |------------------------
+# Option 4 Google Project
 
 # Simple Run
 To run the website you can simply use the run.exe and it will load into a console. Once it has printed it is running open up your browser and use the address http://localhost:8080
