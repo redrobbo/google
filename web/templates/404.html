@@ -1,0 +1,11 @@
+<!--------------------------------------------------------------------------------------------------------------------->
+<!-- Script | 404.html
+<!-- Author | Jonathan Cox
+<!-- Date   | 18 / 3 / 18
+<!--------------------------------------------------------------------------------------------------------------------->
+{% extends "layout.html" %}
+{% block content %}
+    <h1>404</h1>
+    <p>The Page You Are Looking For Doesnt Exist</p>
+    <a class="btn btn-info" href="{{ url_for('home') }}">Home</a>
+{% endblock content %}

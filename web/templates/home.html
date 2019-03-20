@@ -1,0 +1,132 @@
+<!--------------------------------------------------------------------------------------------------------------------->
+<!-- Script | home.html
+<!-- Author | Jonathan Cox
+<!-- Date   | 18 / 3 / 18
+<!--------------------------------------------------------------------------------------------------------------------->
+{% extends "layout.html" %}
+{% block content %}
+    <form method="POST" action="">
+        {{ search.hidden_tag() }}
+        <div class="form-group">
+            <div class="row">
+                <div class="column" style="margin:2px; width:221px">
+                    {{ search.search_name(class="form-control form-control-lg") }}
+                </div>
+                <div class="column" style="margin:2px; width:221px">
+                    {{ search.search_type(class="form-control form-control-lg") }}
+                </div>
+                <div class="column" style="margin:2px; width:221px">
+                    {{ search.search_gender(class="form-control form-control-lg") }}
+                </div>
+                <div class="column" style="margin:2px; width:221px">
+                    {{ search.search_breed(class="form-control form-control-lg") }}
+                </div>
+                <div class="column" style="margin:2px; width:221px">
+                    {{ search.search_color(class="form-control form-control-lg") }}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            {{ search.submit(class="btn btn-outline-info float-right") }}
+        </div>
+    </form>
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=3) %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            |
+        {% endif %}
+    {% endfor %}
+    <div class="row">
+    {% for post in posts.items %}
+    <div class="column" style="margin:10px; width:550px">
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.img_file) }}">
+            </img>
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                    <small class="text-muted">{{ post.date.strftime('%d-%m-%Y') }}</small>
+                </div>
+                <div class="article-metadata">
+                    <h4 class="float-sm-right mr-2 mt-2">{{ post.animal_type }}</h4>
+                    <h2><a class="article-title mr-2" href="{{ url_for('post', post_id=post.id ) }}">{{ post.animal_name }}</a></h2>
+                </div>
+                <p class="article-content">{{ post.content }}</p>
+                <div style="width:400px; hight:100px">
+                    <img class="img float" style="display: block; max-width:450px; max-height:100px; margin-left: auto; margin-right: auto; width: auto; height: 100px" src="{{ url_for('static', filename='images/' + post.animal_pic) }}"></img>
+                </div>
+            </div>
+        </article>
+    </div>
+    {% endfor %}
+    </div>
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=3) %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            |
+        {% endif %}
+    {% endfor %}
+
+<script>
+    $(function() {
+        $.ajax({
+            url: '{{ url_for("names") }}'
+            }).done(function (data){
+                $('#name_names').autocomplete({
+                    source: data,
+                    minLength: 2
+                });
+            });
+        });
+</script>
+
+<script>
+    $(function() {
+        $.ajax({
+            url: '{{ url_for("animals") }}'
+            }).done(function (data){
+                $('#animal_animals').autocomplete({
+                    source: data,
+                    minLength: 2
+                });
+            });
+        });
+</script>
+
+<script>
+    $(function() {
+        $.ajax({
+            url: '{{ url_for("breeds") }}'
+            }).done(function (data){
+                $('#breed_breeds').autocomplete({
+                    source: data,
+                    minLength: 2
+                });
+            });
+        });
+</script>
+
+<script>
+    $(function() {
+        $.ajax({
+            url: '{{ url_for("colors") }}'
+            }).done(function (data){
+                $('#color_colors').autocomplete({
+                    source: data,
+                    minLength: 2
+                });
+            });
+        });
+</script>
+
+{% endblock content %}

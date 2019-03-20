@@ -1,0 +1,78 @@
+<!--------------------------------------------------------------------------------------------------------------------->
+<!-- Script | post.html
+<!-- Author | Jonathan Cox
+<!-- Date   | 18 / 3 / 18
+<!--------------------------------------------------------------------------------------------------------------------->
+{% extends "layout.html" %}
+{% block content %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ url_for('static', filename='images/' + post.author.img_file) }}">
+        </img>
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                <small class="text-muted">{{ post.date.strftime('%d-%m-%Y') }}</small>
+                {% if post.author == current_user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('update_post', post_id = post.id) }}">Update</a>
+                        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#exampleModal">Delete</button>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="column" style="margin:10px; width:450px; padding-right: 50px">
+                    <div class="article-metadata">
+                        <h2 class="article-title">{{ post.animal_name }}</h2>
+                    </div>
+                    <div class="article-metadata">
+                        <h4>Animal</h4>
+                        <p class="article-content">{{ post.animal_type }}</p>
+                    </div>
+                    <div class="article-metadata">
+                        <h4>Gender</h4>
+                        <p class="article-content">{{ post.animal_gender }}</p>
+                    </div>
+                    <div class="article-metadata">
+                        <h4>Breed</h4>
+                        <p class="article-content">{{ post.animal_breed }}</p>
+                    </div>
+                    <div class="article-metadata">
+                        <h4>Color</h4>
+                        <p class="article-content">{{ post.animal_color }}</p>
+                    </div>
+                    <div class="article-metadata">
+                        <h4>Address</h4>
+                        <p class="article-content">{{ post.address }}</p>
+                    </div>
+                    <h4>Info</h4>
+                    <p class="article-content">{{ post.content }}</p>
+                </div>
+                <div class="column" style="margin:10px; width:450px">
+                    <img class="float-right" style="max-width:500px; max-height:500px; hight=auto; width=500px" src="{{ url_for('static', filename='images/' + post.animal_pic) }}"></img>
+                </div>
+            </div>
+    </article>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Yes">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
