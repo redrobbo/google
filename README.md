@@ -1,4 +1,4 @@
-------------------------| Option 4 Google Project |------------------------
+#------------------------| Option 4 Google Project |------------------------
 
 # Simple Run
 To run the website you can simply use the run.exe and it will load into a console. Once it has printed it is running open up your browser and use the address http://localhost:8080
@@ -14,3 +14,16 @@ Either make a new user on the website with the register tab or login to the Goog
 # Editing Post
 You can only delete or edit a post if you are the user that created the post. If you are said user then you can click the update button to change info or upload a picture.
 
+# Requirements For Hard Run
+You will need to pip install the following for py run of the project!
+- Flask
+- Flask-SQLAlchemy
+- Flask-Bcrypt
+- Flask-Login
+- Flask-Mail
+- Flask-WTF
+- WTForms
+- PIL
+- Secrets
+- Os
+- ItsDangerous
